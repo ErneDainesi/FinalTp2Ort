@@ -12,11 +12,7 @@ class SondaService {
             if (validateTemp(temperatura)) {
                 throw Error("Invalid temperature");
             }
-            const previousSonda = await this.sondaModel.sondaExists(id);
-            if (previousSonda) {
-                throw Error("Sonda with same id already exists");
-            }
-            const data = await this.sondaModel.create({id, temperatura});
+            const data = await this.sondaModel.create(id, temperatura);
             return {data};
         } catch (error) {
             return {errorMsg: error.message};

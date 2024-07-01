@@ -2,12 +2,18 @@ class Sonda {
     // Uso mapa para hacer una busqueda mas eficaz
     sondas = new Map();
 
-    async create(data) {
+    async create(id, temperatura) {
         const time = new Date();
         const timestamp = `${time.getDay()}/${time.getMonth()}/${time.getFullYear()} ${time.getHours()}:${time.getMinutes()}`;
-        const newSonda = {...data, timestamp};
-        this.sondas.set(JSON.stringify(newSonda.id), newSonda);
-        return newSonda;
+        const newRegister = {id, temperatura, timestamp};
+        const parsedId = JSON.stringify(id);
+        const sonda = this.sondas.get(parsedId);
+        if (sonda) {
+            sonda.push(newRegister);
+        } else {
+            this.sondas.set(parsedId, [newRegister]);
+        }
+        return sonda ? sonda : this.sondas.get(parsedId);
     }
 
     async getAll() {
@@ -20,10 +26,6 @@ class Sonda {
             throw Error("Provided sonda does not exist.");
         }
         return this.sondas.get(parsedId);
-    }
-
-    async sondaExists(id) {
-        return this.sondas.has(JSON.stringify(id));
     }
 }
 

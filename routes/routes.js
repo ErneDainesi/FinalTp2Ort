@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { listAll, listSingle, register } from "../controller/SondaController";
+import { listAll, listSingle, register } from "../controller/SondaController.js";
 
 const routes = Router();
 
-routes.post('/registrar', register);
-routes.get('/listSingle/{:id}', listSingle);
+routes.post('/register', register);
+routes.get('/listSingle/:id', listSingle);
 routes.get('/listAll/', listAll);
 
 export default routes;

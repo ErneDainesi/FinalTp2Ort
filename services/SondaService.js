@@ -21,6 +21,9 @@ class SondaService {
 
     async listSingle(id) {
         try {
+            if (validateId(id)) {
+                throw Error("Invalid id");
+            }
             const data = await this.sondaModel.getById(id);
             return {data};
         } catch (error) {

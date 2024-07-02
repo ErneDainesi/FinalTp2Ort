@@ -6,10 +6,10 @@ export const register = async (req, res) => {
     try {
         const {id, temperatura} = req.body;
         const result = await service.register(id, temperatura);
-        const status = result.errorMsg ? 500 : 200;
+        const status = result.errorMsg ? 422 : 200;
         res.status(status).json(result);
     } catch (error) {
-        res.status(500).json({errorMsg: error.message})
+        res.status(422).json({errorMsg: error.message})
     }
 }
 
